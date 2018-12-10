@@ -6,35 +6,56 @@ This script generates several word sequences which have same pronunciation.
 I used librispeech(http://www.openslr.org/11/) as sample data.   
 
 ### USAGE
-```$python3 expand_sentence_with_dic.py dict(sample: librispeech-lexicon.txt) src.txt (optional)N```
-
-!! BEWARE  
-This script is in an alpha version and it is just verified to generate intended word sequences.
+```
+  python expand_sentence_with_dic.py w/ options listed up below.
+  
+  required)
+  --eswd-lex ESWD_LEX, --lex ESWD_LEX
+                        lexicon.
+  --eswd-text ESWD_TEXT, --text ESWD_TEXT
+                        text corpus to be expanded.
+  
+  optional)             
+  --eswd-save-sid-corpus ESWD_SAVE_SID_CORPUS, --sid-corpus ESWD_SAVE_SID_CORPUS
+                        Whether saving text corpus including sequential id or not. (default = True)
+  --eswd-max-expanded-sentence ESWD_MAX_EXPANDED_SENTENCE, --max-n ESWD_MAX_EXPANDED_SENTENCE
+                        The maximum number of expanded sentences for each sentence.
+  --eswd-min-sentence-levenshtein-distance-rate ESWD_MIN_SENTENCE_LEVENSHTEIN_DISTANCE_RATE, --min-lev-rate ESWD_MIN_SENTENCE_LEVENSHTEIN_DISTANCE_RATE
+                        min levenshtein distance between reference sentence and expanded sentences.
+  --eswd-min-sentence-levenshtein-distance ESWD_MIN_SENTENCE_LEVENSHTEIN_DISTANCE, --min-lev ESWD_MIN_SENTENCE_LEVENSHTEIN_DISTANCE
+                        min levenshtein distance between reference sentence and expanded sentences.                     
+```                        
 
 ### Input
-src.txt should be contains Sequence ID at the beginning of sentences.
-ex)
+#### Lexicon: eswd-lex
+ex) samples/librispeech-lexicon.txt  
+word[TAB]phone
 ```
-900 A B I SHE HATH THIS MOMENT CONFESSED IT
-901 A B I SHE REFUSETH TO COME
-902 A B I THOU KNOWEST MEN MISTRESS
-903 A B I WITH HER THERE IS NO JESTING
-904 A B INFORMATION WANTED CONCERNING
+A'BODY  EY1 B AA2 D IY0
+A'COURT EY1 K AO2 R T
+```
+#### Text corpus: eswd-text
+ex) samples/test.100.txt
+```
+A B I SHE HATH THIS MOMENT CONFESSED IT
+A B I SHE REFUSETH TO COME
 ...
 ```
-You can use sequence ID for mapping original sequences to the expanded sequences.
 
 ### Output
-The outputs of the 900th sentence.
+#### (optional) Sequential id corpus: ${eswd-text}.sid
+ex) samples/test.100.txt.sid
+sid[blank]word sequence
 ```
-900-1 A B AI SHE HATH THIS' MOMENT CONFESSED IT
-900-2 A B AI SHE HATH THIS' MOMENT CONFEST IT
-900-3 A B AI SHE HATH THIS MOMENT CONFEST IT
-900-4 A B AI SHE' HATH THIS' MOMENT CONFESSED IT
-900-5 A B AI SHE HATH THIS MOMENT CONFESSED IT
-900-6 A B AI SHE' HATH THIS' MOMENT CONFEST IT
-900-7 A B AI SHE'L HATH THIS MOMENT CONFESSED IT
-900-8 A B AI SHE'L HATH THIS MOMENT CONFEST IT
-900-9 A B AI SHE' HATH THIS MOMENT CONFESSED IT
-900-10 A B AI SHE' HATH THIS MOMENT CONFEST IT
+1 A B I SHE HATH THIS MOMENT CONFESSED IT
+2 A B I SHE REFUSETH TO COME
 ```
+#### Expanded corpus: ${eswd-text}.exp
+ex) samples/test.100.txt.exp
+sid[blank]word sequence  
+```
+2 A B AI' SHIH REFUSETH TO COME
+2 A B AIE SHE' REFUSETH TO CUM
+2 A B AI SHE'L REFUSETH TOO COME
+```
+** The sequential ids can be used as mapping ids between original sentences and expanded sentences.
