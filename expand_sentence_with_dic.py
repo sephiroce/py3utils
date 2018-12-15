@@ -126,10 +126,13 @@ class PhoneticCorpusExpander:
     def expand_corpus(self):
         sid = 0
         f_text = open(self._config.eswd_text)
-        w_text = open(self._config.eswd_text + ".exp", "w")
+        w_text = open(
+            "%s.%dto%d.exp" % (self._config.eswd_text, self._config.eswd_sid_start, self._config.eswd_sid_end), "w" )
         sf_text = None
         if self._config.eswd_save_sid_corpus:
-            sf_text = open(self._config.eswd_text + ".sid", "w")
+            sf_text = open(
+                "%s.%dto%d.sid" % (self._config.eswd_text, self._config.eswd_sid_start, self._config.eswd_sid_end),
+                "w" )
 
         expd_line_n = 0
         zero_line_n = 0
