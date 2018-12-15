@@ -134,8 +134,14 @@ class PhoneticCorpusExpander:
         expd_line_n = 0
         zero_line_n = 0
 
+        line_n = 0
         for line in f_text:
             sid += 1
+            if sid > self._config.eswd_sid_end > -1:
+                break
+            if sid < self._config.eswd_sid_start:
+                continue
+            line_n+=1
             pseq_list = list()
             wseq_set = set()
             word_n = len(line.split())
@@ -171,7 +177,7 @@ class PhoneticCorpusExpander:
                             wseq_set.add(wseq)
 
             if len(wseq_set) == 0:
-                self._logger.info("Zero line: %s" % line.strip())
+                self._logger.info("Zero line(sid: %d): %s" % (sid, line.strip()))
                 zero_line_n += 1
             else:
                 self._logger.debug("Expanded word sequences:")
@@ -181,7 +187,7 @@ class PhoneticCorpusExpander:
                     w_text.write("%d %s\n" % (sid, wline.strip()))
                     expd_line_n += 1
 
-        self._logger.info("Input lines: %d, expanded lines: %d, zero lines: %d" % (sid, expd_line_n, zero_line_n))
+        self._logger.info("Input lines: %d, expanded lines: %d, zero lines: %d" % (line_n, expd_line_n, zero_line_n))
 
 
 def main():

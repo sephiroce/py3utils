@@ -123,6 +123,8 @@ class ParseOption:
             fromfile_prefix_chars='@')
 
         prep_group = parser.add_argument_group(title="eswd", description="required options")
+        prep_group.add_argument( '--eswd-sid-start', '--start', type=int, default=1, help="start of sentence index.")
+        prep_group.add_argument( '--eswd-sid-end', '--end', type=int, defulat=-1, help="end of sentence index.")
         prep_group.add_argument('--eswd-lex', '--lex', help="lexicon.", required=True)
         prep_group.add_argument('--eswd-text', '--text', help="text corpus to be expanded.", required=True)
         prep_group.add_argument('--eswd-save-sid-corpus', '--sid-corpus', default=True,
