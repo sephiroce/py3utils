@@ -1,7 +1,7 @@
 #!/bin/python3
 import sys
 
-if len(sys.argv) is not 1:
+if len(sys.argv) is not 2:
 	print("!!Usage: python3 extract_words.py in:text")
 	sys.exit(1)
 
