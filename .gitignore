@@ -1,1 +1,7 @@
 .idea
+*.out
+run.sh
+samples/test.100.txt.2to3.exp
+samples/test.100.txt.2to3.sid
+__pycache__
+__pycache__/*
