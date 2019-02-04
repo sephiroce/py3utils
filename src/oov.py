@@ -10,15 +10,20 @@ if len(sys.argv) is not 3:
 
 # Reading vocab file
 vocab=set()
+is_subwordnmt = False
 with open(sys.argv[1]) as f:
   for line in f:
     line = line.strip()
     if line == "{":
+      is_subwordnmt = True
       continue
     if line == "}":
       break
-    word = line.split(":")[0]
-    word = word[1:len(word)-1]
+    if is_subwordnmt:
+      word = line.split(":")[0]
+      word = word[1:len(word)-1]
+    else:
+      word = line.strip()
     vocab.add(word)
 
 print("%d words were loaded"%len(vocab))
