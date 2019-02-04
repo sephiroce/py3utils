@@ -2,6 +2,11 @@
   This is a wrapping class of arpa library(https://github.com/sfischer13/python-arpa)
   for calculating probabilites of streaming inputs.
 
+  TO-DO
+  "arpa" library is too slow to load several GB size LMs.
+  Rebuilding KMArpa just for loading and looking up prob for a given word sequence.
+  words.txt will be required every time.
+
   @author: Kyungmin Lee(sephiroce@snu.ac.kr)
 
   """
