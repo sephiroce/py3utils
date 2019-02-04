@@ -38,14 +38,27 @@ ngram 2=7
 
 import sys
 from arpa_wrapper import arpa_wrapper
-if len(sys.argv) != 3:
-  print("!!USAGE: python arpa_wrapper_test.py [arpa] \"[sample sentence]\"")
-aw = arpa_wrapper(sys.argv[1])
+if len(sys.argv) < 3:
+  print("!!USAGE: python arpa_wrapper_test.py [arpa] \"[sample sentence]\" (optinally)words.txt")
+aw = None
+if len(sys.argv) == 4:
+  aw = arpa_wrapper(sys.argv[1], sys.argv[3])
+else:
+  aw = arpa_wrapper(sys.argv[1])
 words = sys.argv[2].strip().split(" ")
 prob = 0
+
 for i, word in enumerate(words):
   if i == len(words) - 1 :
     prob += aw.prob(word,True)
   else :
     prob += aw.prob(word)
-print(prob)
+
+print("%.5f"%prob)
+
+for i ,word in enumerate(words):
+  probs = aw.dist()
+  aw.add_word_to_context(word)
+  print(aw.dist(True))
+
+print(aw.dist(True))
