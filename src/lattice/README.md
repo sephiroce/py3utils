@@ -6,9 +6,8 @@
 - Input2 - n-best (default = 3)
 - Output - The Kaldi lattice.
 
-"""
+```
 > python VecSeq2Lattice.py In: matrix In: n-best Out: name of lattice
 ex) > python VecSeq2Lattice.py vec.npy 3 vec.lat
-"""
-
+```
 
