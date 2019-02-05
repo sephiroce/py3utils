@@ -40,11 +40,13 @@ import sys
 from arpa_wrapper import arpa_wrapper
 if len(sys.argv) < 3:
   print("!!USAGE: python arpa_wrapper_test.py [arpa] \"[sample sentence]\" (optinally)words.txt")
+  sys.exit(1)
 aw = None
 if len(sys.argv) == 4:
   aw = arpa_wrapper(sys.argv[1], sys.argv[3])
 else:
   aw = arpa_wrapper(sys.argv[1])
+print("Model has been loaded")
 words = sys.argv[2].strip().split(" ")
 prob = 0
 
