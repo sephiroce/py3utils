@@ -35,13 +35,13 @@ lm.s("This is the end .", sos=False, eos=False)
 lm.log_s("This is the end .", sos=False, eos=False)
   """
 
-import math
-import sys
 import copy
+import math
 import numpy as np
+import sys
 
 class arpa_wrapper:
-  def __init__(self, ngram, vocab = None, base = 10):
+  def __init__(self, ngram, vocab = None, base = np.exp(1)):
     self.lm = arpa.loadf(ngram)[0]
     self.base = base
     with open(ngram) as f:
@@ -52,15 +52,37 @@ class arpa_wrapper:
           self.n = int(line.replace("ngram ","").split("=")[0])
     self.context = ["<s>"]
     self.vocab = None
+    is_first_line = True
+    is_subword_nmt = True
     if vocab :
       self.vocab = list()
       with open(vocab) as f:
         for line in f:
           w = line.strip()
-          part = w.split("\t")
-          if len(part) > 1:
-            w = part[0].strip()
-          self.vocab.append(w)
+          if is_first_line :
+            is_first_line = False
+            if w is "{":
+              is_subword_nmt = True
+              continue
+            else:
+              is_subword_nmt = False
+
+          if is_subword_nmt:
+            if w is "}":
+              break
+            else:
+              p=w.split(": ")
+              v=p[0][1:len(p[0])-1]
+              i=int(p[1][0:len(p[1])-1])
+              if v == "<s>":
+                continue
+              else:
+                self.vocab.append(v)
+                if self.vocab[i] is not v:
+                    print("Wrong word index!! index: %d vocab in the file: %s vocab in the list: %s"%(i,v,self.vocab[i]))
+          else:
+            self.vocab.append(w.split("\t")[0].split(" ")[0].strip())
+      print("%d vocabs were loaded for shallow fusion w/ arpa"%len(self.vocab))
   
   def _get_context(self):
     if len(self.context) == self.n:
