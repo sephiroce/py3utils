@@ -59,8 +59,7 @@ for i, word in enumerate(words):
 print("%.5f"%prob)
 
 for i ,word in enumerate(words):
-  probs = aw.dist()
+  print(aw.dist())
   aw.add_word_to_context(word)
-  print(aw.dist(True))
 
 print(aw.dist(True))
