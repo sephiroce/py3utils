@@ -1,3 +1,6 @@
 UTT*
 data
 WFST
+sample.fst.det.bin
+sample.fst.txt
+test.sh
