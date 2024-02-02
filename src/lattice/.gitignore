@@ -1,1 +1,8 @@
 data
+draw.sh
+sample.det.dot
+sample.det.jpg
+sample.fst.det.bin
+sample.fst.txt
+test.sh
+test.txt

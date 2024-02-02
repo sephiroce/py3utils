@@ -29,6 +29,7 @@ for t in range(len(nt)):
   P = pow(nb, t)
   for p in range(P):
     for ol in nt[t].argsort()[Nbest:][::-1]:
+      ol += 1
       state = state + 1
       latfile.write("%d %d %d %d %.6f\n"%(state / nb, state, ol, ol,nt[t][ol]))
       if t == len(nt) - 1:
