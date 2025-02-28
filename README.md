@@ -4,6 +4,9 @@ Python3 utility scripts especially for someone who researches automatic speech r
 ## extract_words.py: get words from text corpus
 This script extract words from text corpus without duplication.
 
+## Pre-requsite
+- Please put the latest kaldi (8th-Feb-2019) in tools
+
 ### USAGE
 ```
 	python3 extract_words.py in:text_corpus

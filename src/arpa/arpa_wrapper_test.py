@@ -50,16 +50,8 @@ print("Model has been loaded")
 words = sys.argv[2].strip().split(" ")
 prob = 0
 
-for i, word in enumerate(words):
-  if i == len(words) - 1 :
-    prob += aw.prob(word,True)
-  else :
-    prob += aw.prob(word)
-
-print("%.5f"%prob)
-
 for i ,word in enumerate(words):
   print(aw.dist())
   aw.add_word_to_context(word)
 
-print(aw.dist(True))
+print(aw.dist())
